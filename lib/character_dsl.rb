@@ -2,18 +2,31 @@ module CharacterDSL
   def stat(name, type, options = {})
     attr_accessor name
 
+    case type
+    when :integer
+      validates name, numericality: { only_integer: true }, allow_nil: true
+    end
+
     options.each do |key, opt|
       case key
       when :one_of
         raise ArgumentError, "Expected array of valid values: #{name}" unless opt.is_a? Array
-        define_method("#{name}=") do |new_val|
-          unless opt.include?(new_val)
-            puts "Bad value for #{name}: #{new_val}."
-            return
-          end
-          instance_variable_set("@#{name}", new_val)
-        end
+
+        validates name, inclusion: { in: opt }, allow_nil: true
       end
+    end
+  end
+
+  def stat_block(name, &block)
+    nested_class = const_set("Nested_#{name}", Class.new do
+      extend CharacterDSL
+      include ActiveModel::Validations
+      instance_eval(&block)
+    end)
+
+    define_method(name) do
+      instance_variable_set("@#{name}", nested_class.new) unless instance_variable_defined?("@#{name}")
+      instance_variable_get("@#{name}")
     end
   end
 end
