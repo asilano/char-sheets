@@ -5,10 +5,10 @@ require_relative './character_dsl'
 CHARACTER_PATH = File.join(__dir__, '..', 'characters')
 
 class Character
-  extend CharacterDSL
+  include CharacterDSL
   include ActiveModel::Validations
 
-  attr_accessor :character_name
+  stat :character_name, :string
 
   def initialize(name)
     @character_name = name
@@ -29,10 +29,6 @@ class Character
   def self.load(charname)
     YAML.load(File.read(File.join(CHARACTER_PATH, "#{charname.downcase}.char")))
   end
-
-  # def encode_with(coder)
-  #   coder[:name] = @character_name
-  # end
 
   # def init_with(coder)
   #   @character_name = coder[:name]

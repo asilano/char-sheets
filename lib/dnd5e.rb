@@ -35,12 +35,12 @@ class DnD5e < Character
     stat :wisdom, :integer
     stat :charisma, :integer
 
-    derived_stat :str_mod { (strength - 10) / 2 }
-    derived_stat :dex_mod { (dexterity - 10) / 2 }
-    derived_stat :con_mod { (constitution - 10) / 2 }
-    derived_stat :int_mod { (intelligence - 10) / 2 }
-    derived_stat :wis_mod { (wisdom - 10) / 2 }
-    derived_stat :cha_mod { (charisma - 10) / 2 }
+    derived_stat(:str_mod) { (strength - 10) / 2 }
+    derived_stat(:dex_mod) { (dexterity - 10) / 2 }
+    derived_stat(:con_mod) { (constitution - 10) / 2 }
+    derived_stat(:int_mod) { (intelligence - 10) / 2 }
+    derived_stat(:wis_mod) { (wisdom - 10) / 2 }
+    derived_stat(:cha_mod) { (charisma - 10) / 2 }
   end
 
   #derived_stat :initiative { attributes.dex_mod }
