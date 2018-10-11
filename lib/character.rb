@@ -14,6 +14,10 @@ class Character
     @character_name = name
   end
 
+  def character
+    self
+  end
+
   # Write a character to disk as YAML
   def save
     return false unless valid?

@@ -26,6 +26,25 @@ class DnD5e < Character
     Human
     Tiefling
   ]
+  stat :level, :integer
+  derived_stat(:proficiency_bonus) do
+    case level
+    when 1..4
+      2
+    when 5..8
+      3
+    when 9..12
+      4
+    when 13..16
+      5
+    when 17..20
+      6
+    end
+  end
+  stat :personality_traits, :string
+  stat :ideals, :string
+  stat :bonds, :string
+  stat :flaws, :string
 
   stat_block :attributes do
     stat :strength, :integer
@@ -43,9 +62,10 @@ class DnD5e < Character
     derived_stat(:cha_mod) { (charisma - 10) / 2 }
   end
 
-  #derived_stat :initiative { attributes.dex_mod }
+  derived_stat(:initiative) { attributes.dex_mod }
 
-  # stat_block :abilities do
-  #   derived_stat :acrobatics { character.attributes.dex_mod }
-  # end
+  stat_block :abilities do
+    derived_stat(:acrobatics) { character.attributes.dex_mod }
+    derived_stat(:animal_handling) { character.attributes.wis_mod }
+  end
 end

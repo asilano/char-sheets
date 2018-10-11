@@ -1,6 +1,9 @@
 module CharacterDSL
+  # Boilerplate to cause addition of both instance and class methods
   def self.included(base)
     base.extend(ClassMethods)
+
+    # Set up a record of the stats we need to save out
     base.instance_eval do
       class_attribute :stats_to_save
       self.stats_to_save = []
@@ -9,7 +12,7 @@ module CharacterDSL
 
   def encode_with(coder)
     stats_to_save.each do |stat|
-      coder[stat] = instance_variable_get("@#{stat}")
+      coder[stat.to_s] = instance_variable_get("@#{stat}")
     end
   end
 
@@ -39,18 +42,34 @@ module CharacterDSL
     end
 
     def derived_stat(name, &block)
+      # We need to produce a method (called <name>), which calls the passed block
+      # We do this as we cannot alias define_method directly
+      define_method(name, &block)
     end
 
     def stat_block(name, &block)
+      # For the stat block passed, create a nested class for its content
       nested_class = const_set("Nested_#{name}", Class.new do
+        # Include libraries required to evaluate the content of the passed block
         include CharacterDSL
         include ActiveModel::Validations
+
+        # Make character readable and writable to the contents of the passed block
+        attr_accessor :character
+
+        # Evaluate the contents of the passed block
         instance_eval(&block)
       end)
 
       define_method(name) do
+        # Set an instance variable for our new nested block of stats, if one doesn't already exist
         instance_variable_set("@#{name}", nested_class.new) unless instance_variable_defined?("@#{name}")
-        instance_variable_get("@#{name}")
+        # Retrieve the instance variable
+        nested = instance_variable_get("@#{name}")
+        # Give the nested stat block access to the top-level character, if it doesn't already have it
+        nested.character ||= character
+        # Return the nested stat block
+        nested
       end
 
       self.stats_to_save << name
