@@ -5,8 +5,9 @@ module CharacterDSL
 
     # Set up a record of the stats we need to save out
     base.instance_eval do
-      class_attribute :stats_to_save
+      class_attribute :stats_to_save, :initializable
       self.stats_to_save = []
+      self.initializable = {}
     end
   end
 
@@ -25,6 +26,14 @@ module CharacterDSL
       case type
       when :integer
         validates name, numericality: { only_integer: true }, allow_nil: true
+      when :boolean
+        validates name, inclusion: { in: [ true, false ] }, allow_nil: true
+      end
+
+      case type
+      when :array
+        self.initializable[name] = []
+        undef_method("#{name}=")
       end
 
       # Validations based on options

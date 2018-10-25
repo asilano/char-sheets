@@ -11,6 +11,7 @@ class Character
   stat :character_name, :string
 
   def initialize(name)
+    setup
     @character_name = name
   end
 
@@ -31,10 +32,18 @@ class Character
 
   # Load a character from YAML on disk
   def self.load(charname)
-    YAML.load(File.read(File.join(CHARACTER_PATH, "#{charname.downcase}.char")))
+    character = YAML.load(File.read(File.join(CHARACTER_PATH, "#{charname.downcase}.char")))
+    character.setup
+    character
   end
 
   # def init_with(coder)
   #   @character_name = coder[:name]
   # end
+
+  def setup
+    self.class.initializable.each do |i, v|
+      instance_variable_set("@#{i}", v) unless instance_variable_defined?("@#{i}")
+    end
+  end
 end

@@ -27,6 +27,7 @@ class DnD5e < Character
     Tiefling
   ]
   stat :level, :integer
+  stat :inspiration, :boolean
   derived_stat(:proficiency_bonus) do
     case level
     when 1..4
@@ -64,8 +65,27 @@ class DnD5e < Character
 
   derived_stat(:initiative) { attributes.dex_mod }
 
+  stat_block :saving_throws do
+    derived_stat(:strength) { character.mod_with_proficiency(:str_mod, :str_save) }
+    derived_stat(:dexterity) { character.mod_with_proficiency(:dex_mod, :dex_save) }
+    derived_stat(:constitution) { character.mod_with_proficiency(:con_mod, :con_save) }
+    derived_stat(:intelligence) { character.mod_with_proficiency(:int_mod, :int_save) }
+    derived_stat(:wisdom) { character.mod_with_proficiency(:wis_mod, :wis_save) }
+    derived_stat(:charisma) { character.mod_with_proficiency(:cha_mod, :cha_save) }
+  end
+
   stat_block :abilities do
-    derived_stat(:acrobatics) { character.attributes.dex_mod }
-    derived_stat(:animal_handling) { character.attributes.wis_mod }
+    derived_stat(:acrobatics) { character.mod_with_proficiency(:dex_mod, :acrobatics) }
+    derived_stat(:animal_handling) { character.mod_with_proficiency(:wis_mod, :animal_handling) }
+    derived_stat(:perception) { character.mod_with_proficiency(:wis_mod, :perception) }
+  end
+
+  stat :proficiencies, :array
+  derived_stat(:passive_perception) { abilities.perception + 10 }
+
+  def mod_with_proficiency(mod, skill)
+    val = attributes.send(mod)
+    val += proficiency_bonus if proficiencies.include? skill
+    val
   end
 end
