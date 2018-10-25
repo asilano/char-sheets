@@ -77,7 +77,22 @@ class DnD5e < Character
   stat_block :abilities do
     derived_stat(:acrobatics) { character.mod_with_proficiency(:dex_mod, :acrobatics) }
     derived_stat(:animal_handling) { character.mod_with_proficiency(:wis_mod, :animal_handling) }
+    derived_stat(:arcana) { character.mod_with_proficiency(:int_mod, :arcana) }
+    derived_stat(:athletics) { character.mod_with_proficiency(:str_mod, :athletics) }
+    derived_stat(:deception) { character.mod_with_proficiency(:cha_mod, :deception) }
+    derived_stat(:history) { character.mod_with_proficiency(:int_mod, :history) }
+    derived_stat(:insight) { character.mod_with_proficiency(:wis_mod, :insight) }
+    derived_stat(:intimidation) { character.mod_with_proficiency(:cha_mod, :intimidation) }
+    derived_stat(:investigation) { character.mod_with_proficiency(:int_mod, :investigation) }
+    derived_stat(:medicine) { character.mod_with_proficiency(:wis_mod, :medicine) }
+    derived_stat(:nature) { character.mod_with_proficiency(:int_mod, :nature) }
     derived_stat(:perception) { character.mod_with_proficiency(:wis_mod, :perception) }
+    derived_stat(:performance) { character.mod_with_proficiency(:cha_mod, :performance) }
+    derived_stat(:persuasion) { character.mod_with_proficiency(:cha_mod, :persuasion) }
+    derived_stat(:religion) { character.mod_with_proficiency(:int_mod, :religion) }
+    derived_stat(:sleight_of_hand) { character.mod_with_proficiency(:dex_mod, :sleight_of_hand) }
+    derived_stat(:stealth) { character.mod_with_proficiency(:dex_mod, :stealth) }
+    derived_stat(:survival) { character.mod_with_proficiency(:wis_mod, :survival) }
   end
 
   stat :proficiencies, :array
