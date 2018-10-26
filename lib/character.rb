@@ -1,5 +1,6 @@
 require 'yaml'
 require 'active_model'
+require 'active_support/core_ext/string/inflections'
 require_relative './character_dsl'
 
 CHARACTER_PATH = File.join(__dir__, '..', 'characters')

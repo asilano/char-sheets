@@ -8,4 +8,6 @@ class Solar < Exalted
     Night
     Eclipse
   ]
+  stat :supernal_ability, :string, one_of: Exalted::ALL_ABILITIES
+
 end

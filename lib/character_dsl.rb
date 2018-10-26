@@ -18,6 +18,11 @@ module CharacterDSL
   end
 
   module ClassMethods
+    def inherited(subclass)
+      subclass.stats_to_save = stats_to_save.dup
+      subclass.initializable = initializable.dup
+    end
+
     def stat(name, type, options = {})
       # Allow stat to be read/written
       attr_accessor name
