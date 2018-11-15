@@ -26,6 +26,20 @@ class DnD5e < Character
     Human
     Tiefling
   ]
+  stat :character_class, :string, one_of: %w[
+    Barbarian
+    Bard
+    Cleric
+    Druid
+    Fighter
+    Monk
+    Paladin
+    Ranger
+    Rogue
+    Sorcerer
+    Warlock
+    Wizard
+  ]
   stat :level, :integer
   stat :inspiration, :boolean
   derived_stat(:proficiency_bonus) do
@@ -97,6 +111,19 @@ class DnD5e < Character
 
   stat :proficiencies, :array
   derived_stat(:passive_perception) { abilities.perception + 10 }
+  derived_stat(:hit_die) do
+    case character_class
+    when 'Barbarian'
+      12
+    when 'Fighter', 'Paladin', 'Ranger'
+      10
+    when 'Bard', 'Cleric', 'Druid', 'Monk', 'Rogue', 'Warlock'
+      8
+    when 'Sorcerer', 'Wizard'
+      6
+    end
+  end
+  derived_stat(:hit_point_maximum) { hit_die + (level - 1) * (1 + hit_die / 2) + (level * attributes.con_mod) }
 
   def mod_with_proficiency(mod, skill)
     val = attributes.send(mod)
