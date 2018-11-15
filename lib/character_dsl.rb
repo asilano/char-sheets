@@ -88,5 +88,14 @@ module CharacterDSL
 
       self.stats_to_save << name
     end
+
+    def generate(&block)
+      define_method(:create_me, &block)
+      define_singleton_method(:create) do
+        new_char = new
+        new_char.send(:create_me)
+        new_char
+      end
+    end
   end
 end

@@ -1,32 +1,21 @@
 require_relative './character'
+require 'byebug'
 
 class DnD5e < Character
-  stat :background, :string
-  stat :speed, :integer
-  stat :alignment, :string, one_of: [
-    'Lawful Good',
-    'Lawful Neutral',
-    'Lawful Evil',
-    'Neutral Good',
-    'True Neutral',
-    'Neutral Evil',
-    'Chaotic Good',
-    'Chaotic Neutral',
-    'Chaotic Evil'
+  RACES = [
+    'Kenku',
+    'Dragonborn',
+    {'Dwarf' => ['Hill', 'Mountain']},
+    {'Elf' => ['Dark', 'High', 'Wood']},
+    {'Gnome' => ['Forest', 'Rock']},
+    'Half-Elf',
+    {'Halfling' => ['Lightfoot', 'Stout']},
+    'Half-Orc',
+    'Human',
+    'Tiefling',
   ]
-  stat :race, :string, one_of: %w[
-    Kenku
-    Dragonborn
-    Dwarf
-    Elf
-    Gnome
-    Half-Elf
-    Halfling
-    Half-Orc
-    Human
-    Tiefling
-  ]
-  stat :character_class, :string, one_of: %w[
+
+  CHARACTER_CLASSES = %w[
     Barbarian
     Bard
     Cleric
@@ -40,6 +29,23 @@ class DnD5e < Character
     Warlock
     Wizard
   ]
+
+  stat :background, :string
+  stat :base_speed, :integer
+  stat :alignment, :string, one_of: [
+    'Lawful Good',
+    'Lawful Neutral',
+    'Lawful Evil',
+    'Neutral Good',
+    'True Neutral',
+    'Neutral Evil',
+    'Chaotic Good',
+    'Chaotic Neutral',
+    'Chaotic Evil'
+  ]
+  stat :race, :string, one_of: RACES.map { |r| r.is_a?(Hash) ? r.keys.first : r }
+  stat :subrace, :string
+  stat :character_class, :string, one_of: CHARACTER_CLASSES
   stat :level, :integer
   stat :inspiration, :boolean
   derived_stat(:proficiency_bonus) do
@@ -123,11 +129,40 @@ class DnD5e < Character
       6
     end
   end
-  derived_stat(:hit_point_maximum) { hit_die + (level - 1) * (1 + hit_die / 2) + (level * attributes.con_mod) }
+  derived_stat(:hit_point_maximum) do
+    maximum = hit_die + (level - 1) * (1 + hit_die / 2) + (level * attributes.con_mod)
+    maximum += level if race == 'Dwarf' && subrace == 'Hill'
+  end
 
   def mod_with_proficiency(mod, skill)
     val = attributes.send(mod)
     val += proficiency_bonus if proficiencies.include? skill
     val
+  end
+
+  generate do
+    choose :race, :subrace, from: RACES
+    # Determine base speed
+    @base_speed = case race
+                  when 'Dragonborn', 'Half-Elf', 'Half-Orc', 'Human', 'Tiefling'
+                    30
+                  when 'Dwarf', 'Gnome', 'Halfling'
+                    25
+                  when 'Elf'
+                    case subrace
+                    when 'Wood'
+                      35
+                    else
+                      30
+                    end
+                  end
+    case race
+    when 'Elf'
+      @proficiencies << :perception
+    when 'Half-Elf'
+      #LOL
+    end
+
+    choose :character_class, from: CHARACTER_CLASSES
   end
 end
