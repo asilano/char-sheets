@@ -63,7 +63,7 @@ class Character
       puts "Please enter your character's #{subfield}."
       sub_choices = sub_hash[main_choice]
       sub_choice = get_choice(sub_choices)
-      instance_variable_set("@#{subfield}", sub_choice) if sub_field
+      instance_variable_set("@#{subfield}", sub_choice) if subfield
     end
 
     sub_choice ? [main_choice, sub_choice] : main_choice
