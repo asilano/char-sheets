@@ -50,11 +50,11 @@ class Character
     end
   end
 
-  def choose(field, subfield=nil, from: [])
-    puts "Please enter your character's #{field}."
+  def choose(field = nil, subfield=nil, from: [])
+    puts "Please enter your character's #{field}." if field
     main_choices = from.map { |r| r.is_a?(Hash) ? r.keys.first : r }
     main_choice = get_choice(main_choices)
-    instance_variable_set("@#{field}", main_choice)
+    instance_variable_set("@#{field}", main_choice) if field
 
     if subfield &&
        !from.include?(main_choice) &&
@@ -63,15 +63,17 @@ class Character
       puts "Please enter your character's #{subfield}."
       sub_choices = sub_hash[main_choice]
       sub_choice = get_choice(sub_choices)
-      instance_variable_set("@#{subfield}", sub_choice)
+      instance_variable_set("@#{subfield}", sub_choice) if sub_field
     end
+
+    sub_choice ? [main_choice, sub_choice] : main_choice
   end
 
   def get_choice(choices)
     loop do
       print "(#{choices.join(' | ')}): "
       choice = gets.chomp
-      break choice if choices.include? choice
+      break choice if choices.map(&:to_s).include? choice
       puts
       puts "Sorry, that was not a valid selection."
     end

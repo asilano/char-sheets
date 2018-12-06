@@ -30,6 +30,27 @@ class DnD5e < Character
     Wizard
   ]
 
+  ABILITIES = %i[
+    acrobatics
+    animal_handling
+    arcana
+    athletics
+    deception
+    history
+    insight
+    intimidation
+    investigation
+    medicine
+    nature
+    perception
+    performance
+    persuasion
+    religion
+    sleight_of_hand
+    stealth
+    survival
+  ]
+
   stat :background, :string
   stat :base_speed, :integer
   stat :alignment, :string, one_of: [
@@ -160,7 +181,12 @@ class DnD5e < Character
     when 'Elf'
       @proficiencies << :perception
     when 'Half-Elf'
-      #LOL
+      puts 'Please enter two skill proficiencies'
+      first_proficiency = choose(from: ABILITIES).to_sym
+      second_proficiency = choose(from: ABILITIES - [first_proficiency]).to_sym
+      @proficiencies += [first_proficiency, second_proficiency]
+    when 'Half-Orc'
+      @proficiencies << :intimidation
     end
 
     choose :character_class, from: CHARACTER_CLASSES
