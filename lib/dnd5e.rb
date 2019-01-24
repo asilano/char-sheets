@@ -79,9 +79,7 @@ class DnD5e < Character
     Undercommon
   ]
 
-  stat :background, :string
-  stat :base_speed, :integer
-  stat :alignment, :string, one_of: [
+  ALIGNMENTS = [
     'Lawful Good',
     'Lawful Neutral',
     'Lawful Evil',
@@ -92,6 +90,26 @@ class DnD5e < Character
     'Chaotic Neutral',
     'Chaotic Evil'
   ]
+
+  BACKGROUNDS = %w[
+    Acolyte
+    Charlatan
+    Criminal
+    Entertainer
+    Folk\ Hero
+    Guild\ Artisan
+    Hermit
+    Noble
+    Outlander
+    Sage
+    Sailor
+    Soldier
+    Urchin
+  ]
+
+  stat :background, :string
+  stat :base_speed, :integer
+  stat :alignment, :string, one_of: ALIGNMENTS
   stat :race, :string, one_of: RACES.map { |r| r.is_a?(Hash) ? r.keys.first : r }
   stat :subrace, :string
   stat :character_class, :string, one_of: CHARACTER_CLASSES
@@ -111,10 +129,10 @@ class DnD5e < Character
       6
     end
   end
-  stat :personality_traits, :string
-  stat :ideals, :string
-  stat :bonds, :string
-  stat :flaws, :string
+  stat :personality_traits, :array
+  stat :ideal, :string
+  stat :bond, :string
+  stat :flaw, :string
 
   stat_block :attributes do
     stat :strength, :integer
@@ -195,7 +213,7 @@ class DnD5e < Character
     choose :race, :subrace, from: RACES
     # Determine base speed
     @base_speed = case race
-                  when 'Dragonborn', 'Half-Elf', 'Half-Orc', 'Human', 'Tiefling'
+                  when 'Dragonborn', 'Half-Elf', 'Half-Orc', 'Human', 'Kenku', 'Tiefling'
                     30
                   when 'Dwarf', 'Gnome', 'Halfling'
                     25
@@ -280,6 +298,20 @@ class DnD5e < Character
       language = choose(from: LANGUAGES - @languages)
       @languages << language
       race_ability_bonuses = ABILITIES.inject({}) { |h, a| h[a] = 1; h }
+    when 'Kenku'
+      @languages << 'Auran'
+      kenku_proficiencies = %i[
+        acrobatics
+        deception
+        sleight_of_hand
+        stealth
+      ]
+      puts 'Please enter two skill proficiencies'
+      first_proficiency = choose(from: kenku_proficiencies - @proficiencies).to_sym
+      @proficiencies << first_proficiency
+      second_proficiency = choose(from: kenku_proficiencies - @proficiencies).to_sym
+      @proficiencies << second_proficiency
+      race_ability_bonuses = { dexterity: 2, wisdom: 1 }
     when 'Tiefling'
       @languages << 'Infernal'
       race_ability_bonuses = { intelligence: 1,
@@ -499,5 +531,63 @@ class DnD5e < Character
       attributes.send("#{ability}=", choice + (race_ability_bonuses[ability] || 0))
       ability_scores.delete(choice)
     end
+
+    enter :character_name
+
+    choose :alignment, from: ALIGNMENTS
+
+    choose :background, from: BACKGROUNDS
+    case @background
+    #TODO: Add background feature
+    when 'Acolyte'
+      @proficiencies << :insight
+      @proficiencies << :religion
+      puts 'Please enter two languages to be proficient in'
+      2.times { @languages << choose(from: LANGUAGES - @languages) }
+      personality_options = [
+        %q{I idolize a parlicular hero of my faith, and constantly refer to that person's deeds and example.},
+        %q{I can find common ground between the fiercest enemies, empathizing with them and always working toward peace.},
+        %q{I see omens in every event and action. The gods try to speak to us; we just need to listen.},
+        %q{Nothing can shake my optimistic attitude.},
+        %q{I quote (or misquote) sacred texts and proverbs in almost every situation.},
+        %q{I am tolerant (or intolerant) of other faiths and respect (or condemn) the worship of other gods.},
+        %q{I've enjoyed fine food, drink, and high society among my temple's elite. Rough living grates on me.},
+        %q{I've spent so long in the temple that I have little practical experience dealing with people in the outside world.}
+      ]
+      ideal_options = [
+        %q{Tradition. The ancient traditions of worship and sacrifice must be preserved and upheld. (Lawful)},
+        %q{Charity. I always try to help those in need, no matter what the personal cost. (Good)},
+        %q{Change. We must help bring about the changes the gods are constantly working in the world. (Chaotic)},
+        %q{Power. I hope to one day rise to the top of my faith's religious hierarchy. (Lawful)},
+        %q{Faith. I trust that my deity will guide my actions. I have faith that if I work hard, things will go well. (Lawful)},
+        %q{Aspiration. I seek to prove myself worthy of my god's favor by matching my actions against his or her teachings. (Any)}
+      ]
+      bond_options = [
+        %q{I would die to recover an ancient relic of my faith that was lost long ago.},
+        %q{I will someday get revenge on the corrupt temple hierarchy which branded me a heretic.},
+        %q{I owe my life to the priest who took me in when my parents died.},
+        %q{Everything I do is for the common people.},
+        %q{I will do anything to protect the temple in which I served.},
+        %q{I seek to preserve a sacred text that my enemies consider heretical and seek to destroy.}
+      ]
+      flaw_options = [
+        %q{I judge others harshly, and myself even more severely.},
+        %q{I put too much trust in those who wield power within my temple's hierarchy.},
+        %q{My piety sometimes leads me to blindly trust those that profess faith in my god.},
+        %q{I am inflexible in my thinking.},
+        %q{I am suspicious of strangers and expect the worst of them.},
+        %q{Once I pick a goal, I become obsessed with it to the detriment of everything else in my life.}
+      ]
+    end
+
+    puts 'Please select two personality traits for your character'
+    2.times do
+      @personality_traits <<
+        choose_by_number(from: personality_options - @personality_traits, allow_random: true, allow_free: true)
+    end
+
+    choose_by_number(:ideal, from: ideal_options, allow_random: true, allow_free: true)
+    choose_by_number(:bond, from: bond_options, allow_random: true, allow_free: true)
+    choose_by_number(:flaw, from: flaw_options, allow_random: true, allow_free: true)
   end
 end
