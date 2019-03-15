@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <h1><%= @character.character_name %></h1>
+    </div>
+    <div class="col-8">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            Class: <%= @character.character_class %> <%= @character.level %>
+          </div>
+          <div class="col">
+            Background: <%= @character.background %>
+          </div>
+          <div class="col">
+            Player:
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            Race: <%= @character.race %> <%= "(#{@character.subrace})" if @character.subrace.present? %>
+          </div>
+          <div class="col">
+            Alignment: <%= @character.alignment %>
+          </div>
+          <div class="col">
+            Total XP:
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="container">
+        <div class="row">
+          <div class="col-4">
+            <div class="stat-box attribute">
+              <h1>Strength</h1>
+              <span class="attrib_mod"><%= "%+d" % @character.attributes.str_mod %></span>
+              <span class="attrib_val"><%= @character.attributes.strength %></span>
+            </div>
+            <div class="stat-box attribute">
+              <h1>Dexterity</h1>
+              <span class="attrib_mod"><%= "%+d" % @character.attributes.dex_mod %></span>
+              <span class="attrib_val"><%= @character.attributes.dexterity %></span>
+            </div>
+            <div class="stat-box attribute">
+              <h1>Constitution</h1>
+              <span class="attrib_mod"><%= "%+d" % @character.attributes.con_mod %></span>
+              <span class="attrib_val"><%= @character.attributes.constitution %></span>
+            </div>
+            <div class="stat-box attribute">
+              <h1>Intelligence</h1>
+              <span class="attrib_mod"><%= "%+d" % @character.attributes.int_mod %></span>
+              <span class="attrib_val"><%= @character.attributes.intelligence %></span>
+            </div>
+            <div class="stat-box attribute">
+              <h1>Wisdom</h1>
+              <span class="attrib_mod"><%= "%+d" % @character.attributes.wis_mod %></span>
+              <span class="attrib_val"><%= @character.attributes.wisdom %></span>
+            </div>
+            <div class="stat-box attribute">
+              <h1>Charisma</h1>
+              <span class="attrib_mod"><%= "%+d" % @character.attributes.cha_mod %></span>
+              <span class="attrib_val"><%= @character.attributes.charisma %></span>
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="">Inspiration</div>
+            <div class="">Proficiency bonus: <%= @character.proficiency_bonus %></div>
+            <div class="stat-box">
+              <ul>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= @character.saving_throws.strength %></span>
+                  <span>Strength</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= @character.saving_throws.dexterity %></span>
+                  <span>Dexterity</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= @character.saving_throws.constitution %></span>
+                  <span>Constitution</span>
+                </li>
+                <li>
+                  <span class="dot selected-dot"></span>
+                  <span><%= @character.saving_throws.intelligence %></span>
+                  <span>Intelligence</span>
+                </li>
+                <li>
+                  <span class="dot selected-dot"></span>
+                  <span><%= @character.saving_throws.wisdom %></span>
+                  <span>Wisdom</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= @character.saving_throws.charisma %></span>
+                  <span>Charisma</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+</div>
+
+<pre>
+  <%= YAML.dump(@character) %>
+</pre>
