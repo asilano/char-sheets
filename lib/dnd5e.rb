@@ -1,5 +1,4 @@
 require_relative './character'
-require 'byebug'
 
 class DnD5e < Character
   RACES = [
@@ -199,6 +198,7 @@ class DnD5e < Character
   derived_stat(:hit_point_maximum) do
     maximum = hit_die + (level - 1) * (1 + hit_die / 2) + (level * attributes.con_mod)
     maximum += level if race == 'Dwarf' && subrace == 'Hill'
+    maximum
   end
 
   stat :languages, :array

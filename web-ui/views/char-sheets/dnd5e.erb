@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col">
+    <div class="col-4">
       <div class="container">
         <div class="row">
           <div class="col-4">
@@ -102,12 +102,183 @@
                 </li>
               </ul>
             </div>
+            <div class="stat-box">
+              <ul>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.acrobatics %></span>
+                  <span>Acrobatics</span>
+                  <span class="governing-attrib">(Dex)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.animal_handling %></span>
+                  <span>Animal handling</span>
+                  <span class="governing-attrib">(Wis)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.arcana %></span>
+                  <span>Arcana</span>
+                  <span class="governing-attrib">(Int)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.athletics %></span>
+                  <span>Athletics</span>
+                  <span class="governing-attrib">(Str)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.deception %></span>
+                  <span>Deception</span>
+                  <span class="governing-attrib">(Cha)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.history %></span>
+                  <span>History</span>
+                  <span class="governing-attrib">(Int)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.insight %></span>
+                  <span>Insight</span>
+                  <span class="governing-attrib">(Wis)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.intimidation %></span>
+                  <span>Intimidation</span>
+                  <span class="governing-attrib">(Cha)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.investigation %></span>
+                  <span>Investigation</span>
+                  <span class="governing-attrib">(Int)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.medicine %></span>
+                  <span>Medicine</span>
+                  <span class="governing-attrib">(Wis)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.nature %></span>
+                  <span>Nature</span>
+                  <span class="governing-attrib">(Int)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.perception %></span>
+                  <span>Perception</span>
+                  <span class="governing-attrib">(Wis)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.performance %></span>
+                  <span>Performance</span>
+                  <span class="governing-attrib">(Cha)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.persuasion %></span>
+                  <span>Persuasion</span>
+                  <span class="governing-attrib">(Cha)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.religion %></span>
+                  <span>Religion</span>
+                  <span class="governing-attrib">(Int)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.sleight_of_hand %></span>
+                  <span>Sleight of hand</span>
+                  <span class="governing-attrib">(Dex)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.stealth %></span>
+                  <span>Stealth</span>
+                  <span class="governing-attrib">(Dex)</span>
+                </li>
+                <li>
+                  <span class="dot"></span>
+                  <span><%= "%+d" % @character.abilities.survival %></span>
+                  <span>Survival</span>
+                  <span class="governing-attrib">(Wis)</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col"></div>
-    <div class="col"></div>
+    <div class="col-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-4">
+            <div class="stat-box">
+              <h1>Armor class</h1>
+              <span class="attrib_val">##</span>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="stat-box">
+              <h1>Initiative</h1>
+              <span class="attrib_val"><%= "%+d" % @character.initiative %></span>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="stat-box">
+              <h1>Speed</h1>
+              <span class="attrib_val"><%= @character.base_speed %> ft.</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h1>Current hit points</h1>
+            <span class="attrib_val"><%= @character.hit_point_maximum %>/<%= @character.hit_point_maximum %></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col"></div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <h1>Hit dice</h1>
+            <span class="attrib_val"><%= @character.level %>d<%= @character.hit_die %></span>
+          </div>
+          <div class="col-6">
+            <h1>Death saves</h1>
+            <div class="container">
+              <div class="row">
+                <div class="col-6 right">Successes</div>
+                <div class="col-6">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 right">Failures</div>
+                <div class="col-6">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4"></div>
   </div>
 </div>
 
