@@ -15,6 +15,10 @@ get '/:name/show' do |name|
   erb :"char-sheets/#{@character.template_name}"
 end
 
+get '/char-sheets.css' do
+  scss :"char-sheets"
+end
+
 def character_list
   files = Dir.glob(File.join(__dir__, '../characters/*.char'))
   files.map { |fn| File.basename(fn, '.char') }

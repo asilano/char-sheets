@@ -72,32 +72,32 @@
               <ul>
                 <li>
                   <span class="dot"></span>
-                  <span><%= @character.saving_throws.strength %></span>
+                  <span><%= "%+d" % @character.saving_throws.strength %></span>
                   <span>Strength</span>
                 </li>
                 <li>
                   <span class="dot"></span>
-                  <span><%= @character.saving_throws.dexterity %></span>
+                  <span><%= "%+d" % @character.saving_throws.dexterity %></span>
                   <span>Dexterity</span>
                 </li>
                 <li>
                   <span class="dot"></span>
-                  <span><%= @character.saving_throws.constitution %></span>
+                  <span><%= "%+d" % @character.saving_throws.constitution %></span>
                   <span>Constitution</span>
                 </li>
                 <li>
                   <span class="dot selected-dot"></span>
-                  <span><%= @character.saving_throws.intelligence %></span>
+                  <span><%= "%+d" % @character.saving_throws.intelligence %></span>
                   <span>Intelligence</span>
                 </li>
                 <li>
                   <span class="dot selected-dot"></span>
-                  <span><%= @character.saving_throws.wisdom %></span>
+                  <span><%= "%+d" % @character.saving_throws.wisdom %></span>
                   <span>Wisdom</span>
                 </li>
                 <li>
                   <span class="dot"></span>
-                  <span><%= @character.saving_throws.charisma %></span>
+                  <span><%= "%+d" % @character.saving_throws.charisma %></span>
                   <span>Charisma</span>
                 </li>
               </ul>
