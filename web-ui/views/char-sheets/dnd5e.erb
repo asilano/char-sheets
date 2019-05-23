@@ -67,13 +67,13 @@
           </div>
         </div>
         <div class="col-8">
-          <div class="stat-box">
-            <span class='ticky-box'></span>
-            <span>Inspiration</span>
-          </div>
-          <div class="stat-box">
-            <span class="prof-val"><%= @character.proficiency_bonus %></span>
-            <span class="">Proficiency bonus</span>
+          <div class="container">
+            <div class="row">
+              <span class='ticky-box'>&nbsp;</span><span class="box-label">Inspiration</span>
+            </div>
+            <div class="row mt-1">
+              <span class="labelled-val"><%= @character.proficiency_bonus %></span><span class="box-label">Proficiency bonus</span>
+            </div>
           </div>
           <div class="stat-box">
             <ul>
@@ -222,6 +222,11 @@
             </ul>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row pr-3">
+        <span class="labelled-val"><%= @character.passive_perception %></span><span class="box-label">Passive Perception</span>
       </div>
     </div>
   </div>

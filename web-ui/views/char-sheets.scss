@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .stat-box h1 {
   font-size: 14px;
 }
@@ -48,7 +52,7 @@ li {
   color: #707070;
 }
 
-.prof-val {
+.labelled-val {
   background-color: white;
   border: 1px black solid;
   border-radius: 50%;
@@ -56,16 +60,32 @@ li {
   font-size: 14px;
   font-weight: bold;
   height: 2.5em;
+  left: 10px;
+  margin-top: 2px;
   padding: 0.39em;
   position: relative;
   text-align: center;
   width: 2.5em;
+
+  & + .box-label {
+    border-left: 0;
+  }
 }
 
 .ticky-box {
   background-color: white;
+  border: 1.5px black solid;
+  display: inline-block;
+  height: 2.5em;
+  width: 2.5em;
+}
+.box-label {
   border: 1px black solid;
   display: inline-block;
+  flex-grow: 1;
   height: 2em;
-  width: 2em;
+  padding: 0 5px;
+  position: relative;
+  text-align: center;
+  top: 0.25em;
 }
