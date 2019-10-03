@@ -1,0 +1,339 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <h1><%= @character.character_name %></h1>
+    </div>
+    <div class="col-8">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            Class: <%= @character.character_class %> <%= @character.level %>
+          </div>
+          <div class="col">
+            Background: <%= @character.background %>
+          </div>
+          <div class="col">
+            Player:
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            Race: <%= @character.race %> <%= "(#{@character.subrace})" if @character.subrace.present? %>
+          </div>
+          <div class="col">
+            Alignment: <%= @character.alignment %>
+          </div>
+          <div class="col">
+            Total XP:
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <div class="stat-box attribute">
+            <h1>Strength</h1>
+            <div class="attrib-mod"><%= "%+d" % @character.attributes.str_mod %></div>
+            <div class="attrib-val"><%= @character.attributes.strength %></div>
+          </div>
+          <div class="stat-box attribute">
+            <h1>Dexterity</h1>
+            <div class="attrib-mod"><%= "%+d" % @character.attributes.dex_mod %></div>
+            <div class="attrib-val"><%= @character.attributes.dexterity %></div>
+          </div>
+          <div class="stat-box attribute">
+            <h1>Constitution</h1>
+            <div class="attrib-mod"><%= "%+d" % @character.attributes.con_mod %></div>
+            <div class="attrib-val"><%= @character.attributes.constitution %></div>
+          </div>
+          <div class="stat-box attribute">
+            <h1>Intelligence</h1>
+            <div class="attrib-mod"><%= "%+d" % @character.attributes.int_mod %></div>
+            <div class="attrib-val"><%= @character.attributes.intelligence %></div>
+          </div>
+          <div class="stat-box attribute">
+            <h1>Wisdom</h1>
+            <div class="attrib-mod"><%= "%+d" % @character.attributes.wis_mod %></div>
+            <div class="attrib-val"><%= @character.attributes.wisdom %></div>
+          </div>
+          <div class="stat-box attribute">
+            <h1>Charisma</h1>
+            <div class="attrib-mod"><%= "%+d" % @character.attributes.cha_mod %></div>
+            <div class="attrib-val"><%= @character.attributes.charisma %></div>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="container">
+            <div class="row">
+              <span class='ticky-box'>&nbsp;</span><span class="box-label">Inspiration</span>
+            </div>
+            <div class="row mt-1">
+              <span class="labelled-val"><%= @character.proficiency_bonus %></span><span class="box-label">Proficiency bonus</span>
+            </div>
+          </div>
+          <div class="stat-box">
+            <ul>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :str_save %>"></span>
+                <span><%= "%+d" % @character.saving_throws.strength %></span>
+                <span>Strength</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :dex_save %>"></span>
+                <span><%= "%+d" % @character.saving_throws.dexterity %></span>
+                <span>Dexterity</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :con_save %>"></span>
+                <span><%= "%+d" % @character.saving_throws.constitution %></span>
+                <span>Constitution</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :int_save %>"></span>
+                <span><%= "%+d" % @character.saving_throws.intelligence %></span>
+                <span>Intelligence</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :wis_save %>"></span>
+                <span><%= "%+d" % @character.saving_throws.wisdom %></span>
+                <span>Wisdom</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :cha_save %>"></span>
+                <span><%= "%+d" % @character.saving_throws.charisma %></span>
+                <span>Charisma</span>
+              </li>
+            </ul>
+          </div>
+          <div class="stat-box">
+            <ul>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :acrobatics %>"></span>
+                <span><%= "%+d" % @character.abilities.acrobatics %></span>
+                <span>Acrobatics</span>
+                <span class="governing-attrib">(Dex)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :animal_handling %>"></span>
+                <span><%= "%+d" % @character.abilities.animal_handling %></span>
+                <span>Animal handling</span>
+                <span class="governing-attrib">(Wis)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :arcana %>"></span>
+                <span><%= "%+d" % @character.abilities.arcana %></span>
+                <span>Arcana</span>
+                <span class="governing-attrib">(Int)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :athletics %>"></span>
+                <span><%= "%+d" % @character.abilities.athletics %></span>
+                <span>Athletics</span>
+                <span class="governing-attrib">(Str)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :deception %>"></span>
+                <span><%= "%+d" % @character.abilities.deception %></span>
+                <span>Deception</span>
+                <span class="governing-attrib">(Cha)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :history %>"></span>
+                <span><%= "%+d" % @character.abilities.history %></span>
+                <span>History</span>
+                <span class="governing-attrib">(Int)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :insight %>"></span>
+                <span><%= "%+d" % @character.abilities.insight %></span>
+                <span>Insight</span>
+                <span class="governing-attrib">(Wis)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :intimidation %>"></span>
+                <span><%= "%+d" % @character.abilities.intimidation %></span>
+                <span>Intimidation</span>
+                <span class="governing-attrib">(Cha)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :investigation %>"></span>
+                <span><%= "%+d" % @character.abilities.investigation %></span>
+                <span>Investigation</span>
+                <span class="governing-attrib">(Int)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :medicine %>"></span>
+                <span><%= "%+d" % @character.abilities.medicine %></span>
+                <span>Medicine</span>
+                <span class="governing-attrib">(Wis)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :nature %>"></span>
+                <span><%= "%+d" % @character.abilities.nature %></span>
+                <span>Nature</span>
+                <span class="governing-attrib">(Int)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :perception %>"></span>
+                <span><%= "%+d" % @character.abilities.perception %></span>
+                <span>Perception</span>
+                <span class="governing-attrib">(Wis)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :performance %>"></span>
+                <span><%= "%+d" % @character.abilities.performance %></span>
+                <span>Performance</span>
+                <span class="governing-attrib">(Cha)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :persuasion %>"></span>
+                <span><%= "%+d" % @character.abilities.persuasion %></span>
+                <span>Persuasion</span>
+                <span class="governing-attrib">(Cha)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :religion %>"></span>
+                <span><%= "%+d" % @character.abilities.religion %></span>
+                <span>Religion</span>
+                <span class="governing-attrib">(Int)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :sleight_of_hand %>"></span>
+                <span><%= "%+d" % @character.abilities.sleight_of_hand %></span>
+                <span>Sleight of hand</span>
+                <span class="governing-attrib">(Dex)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :stealth %>"></span>
+                <span><%= "%+d" % @character.abilities.stealth %></span>
+                <span>Stealth</span>
+                <span class="governing-attrib">(Dex)</span>
+              </li>
+              <li>
+                <span class="dot <%= 'selected-dot' if @character.proficiencies.include? :survival %>"></span>
+                <span><%= "%+d" % @character.abilities.survival %></span>
+                <span>Survival</span>
+                <span class="governing-attrib">(Wis)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row pr-3">
+        <span class="labelled-val"><%= @character.passive_perception %></span><span class="box-label">Passive Perception</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="stat-box free-text ml-3 mr-3">
+          <dl>
+            <dt>Languages: </dt>
+            <dd><%= @character.languages.join(', ') %></dd>
+            <dt>Proficiencies: </dt>
+            <dd>TODO - weapons etc.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <div class="stat-box text-centre">
+            <h1>Armor class</h1>
+            <span class="attrib-val large-val">##</span>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="stat-box text-centre">
+            <h1>Initiative</h1>
+            <span class="attrib-val large-val"><%= "%+d" % @character.initiative %></span>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="stat-box text-centre">
+            <h1>Speed</h1>
+            <span class="attrib-val large-val"><%= @character.base_speed %> ft.</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="stat-box text-centre">
+            <h1>Current hit points</h1>
+            <span class="attrib-val"><%= @character.hit_point_maximum %>/<%= @character.hit_point_maximum %></span>
+          </div>
+          <div class="stat-box text-centre">
+            <h1>Temporary hit points</h1>
+            <span class="attrib-val">&nbsp;</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="stat-box text-centre">
+            <h1>Hit dice</h1>
+            <span class="attrib-val"><%= @character.level %>d<%= @character.hit_die %></span>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="stat-box text-centre">
+          <h1>Death saves</h1>
+            <div class="container">
+              <div class="row">
+                <div class="col-6 right">Successes</div>
+                <div class="col-6">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 right">Failures</div>
+                <div class="col-6">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="stat-box free-text">
+      <h1 class="text-centre">Personality traits</h1>
+      <% @character.personality_traits.each do |trait| %>
+        <div><%= trait %></div>
+      <% end %>
+    </div>
+    <div class="stat-box free-text">
+      <h1 class="text-centre">Ideal</h1>
+      <%= @character.ideal %>
+    </div>
+    <div class="stat-box free-text">
+      <h1 class="text-centre">Bond</h1>
+      <%= @character.bond %>
+    </div>
+    <div class="stat-box free-text">
+      <h1 class="text-centre">Flaw</h1>
+      <%= @character.flaw %>
+    </div>
+  </div>
+</div>
+
+<pre>
+  <%= YAML.dump(@character) %>
+</pre>

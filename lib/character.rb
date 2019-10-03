@@ -20,6 +20,10 @@ class Character
     self
   end
 
+  def template_name
+    self.class.name.downcase
+  end
+
   # Write a character to disk as YAML
   def save
     return false unless valid?

@@ -1,5 +1,4 @@
 require_relative './character'
-require 'byebug'
 
 class DnD5e < Character
   RACES = [
@@ -199,6 +198,7 @@ class DnD5e < Character
   derived_stat(:hit_point_maximum) do
     maximum = hit_die + (level - 1) * (1 + hit_die / 2) + (level * attributes.con_mod)
     maximum += level if race == 'Dwarf' && subrace == 'Hill'
+    maximum
   end
 
   stat :languages, :array
@@ -607,14 +607,14 @@ class DnD5e < Character
         %q{A powerful person killed someone I love. Some day soon, I'll have my revenge.},
         %q{I swindled and ruined a person who didn't deserve it. I seek to atone for my misdeeds but might never be able to forgive myself.}
       ]
-      flaw_options = {
+      flaw_options = [
         %q{I can't resist a pretty face.},
         %q{I'm always in debt. I spend my ill-gotten gains on decadent luxuries faster than I bring them in.},
         %q{I'm convinced that no one could ever fool me the way I fool others.},
         %q{I'm too greedy for my own good. I can't resist taking a risk if there's money involved.},
         %q{I can't resist swindling people who are more powerful than me.},
         %q{I hate to admit it and will hate myself for it, but I'll run and preserve my own hide if the going gets tough.}
-      }
+      ]
     when 'Criminal'
       @proficiencies << :deception
       @proficiencies << :stealth
@@ -992,7 +992,7 @@ class DnD5e < Character
         %q{I have little respect for anyone who is not a proven warrior.},
         %q{I made a terrible mistake in battle, cost many lives and I would do anything to keep that mistake secret.},
         %q{My hatred of my enemies is blind and unreasoning.},
-        %q{I obey the law, even if the law causes misery.}
+        %q{I obey the law, even if the law causes misery.},
         %q{I'd rather eat my armor than admit when I'm wrong.}
       ]
     when 'Urchin'

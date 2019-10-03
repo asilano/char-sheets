@@ -77,7 +77,7 @@ module CharacterDSL
 
       define_method(name) do
         # Set an instance variable for our new nested block of stats, if one doesn't already exist
-        instance_variable_set("@#{name}", nested_class.new) unless instance_variable_defined?("@#{name}")
+        #instance_variable_set("@#{name}", nested_class.new) unless instance_variable_defined?("@#{name}")
         # Retrieve the instance variable
         nested = instance_variable_get("@#{name}")
         # Give the nested stat block access to the top-level character, if it doesn't already have it
@@ -86,6 +86,7 @@ module CharacterDSL
         nested
       end
 
+      self.initializable[name] = nested_class.new
       self.stats_to_save << name
     end
 
