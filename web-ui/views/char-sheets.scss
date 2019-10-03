@@ -2,13 +2,25 @@
   box-sizing: border-box;
 }
 
-.stat-box h1 {
-  font-size: 14px;
-}
-
 .stat-box {
   border: 1px black solid;
   margin: 1em 0;
+
+  h1 {
+    font-size: 14px;
+  }
+
+  &.attribute {
+    text-align: center;
+
+    .attrib-val {
+      background-color: white;
+      border: 1px black solid;
+      border-radius: 50%;
+      position: relative;
+      top: 0.6em;
+    }
+  }
 }
 
 .attrib-mod {
@@ -16,22 +28,16 @@
 }
 
 .attrib-val {
-  margin: 0 auto;
   font-size: 14px;
   font-weight: bold;
+  margin: 0 auto;
   width: 50%;
-}
 
-.stat-box.attribute {
-  text-align: center;
-  .attrib-val {
-    background-color: white;
-    border: 1px black solid;
-    border-radius: 50%;
-    position: relative;
-    top: 0.6em;
+  &.large-val {
+    font-size: 24px;
   }
 }
+
 ul {
   padding-left: 10px;
 }
@@ -88,4 +94,18 @@ li {
   position: relative;
   text-align: center;
   top: 0.25em;
+}
+
+.free-text {
+  flex-grow: 1;
+  margin: 1em 0;
+  padding: 0.5em;
+}
+
+dd {
+  margin-left: 1em;
+}
+
+.text-centre {
+  text-align: center;
 }

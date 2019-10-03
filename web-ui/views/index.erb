@@ -16,7 +16,7 @@
         <tbody>
           <% @charnames.each do |char| %>
             <tr>
-              <td><a href="<%= char + "/show" %>"><%= char %></a></td>
+              <td><a href="<%= char + "/show" %>"><%= char.titleize %></a></td>
             </tr>
           <% end %>
         </tbody>

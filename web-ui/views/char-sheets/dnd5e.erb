@@ -229,60 +229,82 @@
         <span class="labelled-val"><%= @character.passive_perception %></span><span class="box-label">Passive Perception</span>
       </div>
     </div>
+    <div class="container">
+      <div class="row">
+        <div class="stat-box free-text ml-3 mr-3">
+          <dl>
+            <dt>Languages: </dt>
+            <dd><%= @character.languages.join(', ') %></dd>
+            <dt>Proficiencies: </dt>
+            <dd>TODO - weapons etc.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="col-4">
     <div class="container">
       <div class="row">
         <div class="col-4">
-          <div class="stat-box">
+          <div class="stat-box text-centre">
             <h1>Armor class</h1>
-            <span class="attrib-val">##</span>
+            <span class="attrib-val large-val">##</span>
           </div>
         </div>
         <div class="col-4">
-          <div class="stat-box">
+          <div class="stat-box text-centre">
             <h1>Initiative</h1>
-            <span class="attrib-val"><%= "%+d" % @character.initiative %></span>
+            <span class="attrib-val large-val"><%= "%+d" % @character.initiative %></span>
           </div>
         </div>
         <div class="col-4">
-          <div class="stat-box">
+          <div class="stat-box text-centre">
             <h1>Speed</h1>
-            <span class="attrib-val"><%= @character.base_speed %> ft.</span>
+            <span class="attrib-val large-val"><%= @character.base_speed %> ft.</span>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <h1>Current hit points</h1>
-          <span class="attrib-val"><%= @character.hit_point_maximum %>/<%= @character.hit_point_maximum %></span>
+          <div class="stat-box text-centre">
+            <h1>Current hit points</h1>
+            <span class="attrib-val"><%= @character.hit_point_maximum %>/<%= @character.hit_point_maximum %></span>
+          </div>
+          <div class="stat-box text-centre">
+            <h1>Temporary hit points</h1>
+            <span class="attrib-val">&nbsp;</span>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col"></div>
       </div>
       <div class="row">
-        <div class="col-6">
-          <h1>Hit dice</h1>
-          <span class="attrib-val"><%= @character.level %>d<%= @character.hit_die %></span>
+        <div class="col-4">
+          <div class="stat-box text-centre">
+            <h1>Hit dice</h1>
+            <span class="attrib-val"><%= @character.level %>d<%= @character.hit_die %></span>
+          </div>
         </div>
-        <div class="col-6">
+        <div class="col-8">
+          <div class="stat-box text-centre">
           <h1>Death saves</h1>
-          <div class="container">
-            <div class="row">
-              <div class="col-6 right">Successes</div>
-              <div class="col-6">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
+            <div class="container">
+              <div class="row">
+                <div class="col-6 right">Successes</div>
+                <div class="col-6">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-6 right">Failures</div>
-              <div class="col-6">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
+              <div class="row">
+                <div class="col-6 right">Failures</div>
+                <div class="col-6">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -290,7 +312,26 @@
       </div>
     </div>
   </div>
-  <div class="col-4"></div>
+  <div class="col-4">
+    <div class="stat-box free-text">
+      <h1 class="text-centre">Personality traits</h1>
+      <% @character.personality_traits.each do |trait| %>
+        <div><%= trait %></div>
+      <% end %>
+    </div>
+    <div class="stat-box free-text">
+      <h1 class="text-centre">Ideal</h1>
+      <%= @character.ideal %>
+    </div>
+    <div class="stat-box free-text">
+      <h1 class="text-centre">Bond</h1>
+      <%= @character.bond %>
+    </div>
+    <div class="stat-box free-text">
+      <h1 class="text-centre">Flaw</h1>
+      <%= @character.flaw %>
+    </div>
+  </div>
 </div>
 
 <pre>
