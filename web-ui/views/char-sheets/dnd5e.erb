@@ -1,30 +1,44 @@
 <div class="container">
-  <div class="row">
+  <div class="row hero">
     <div class="col-4">
       <h1><%= @character.character_name %></h1>
     </div>
     <div class="col-8">
       <div class="container">
-        <div class="row">
-          <div class="col">
-            Class: <%= @character.character_class %> <%= @character.level %>
+        <div class="stat-box character-foundation">
+          <div class="row">
+            <div class="col">
+              <span class="attrib-val med-val"><%= @character.character_class %> <%= @character.level %></span>
+              <hr>
+              <h1>CLASS & LEVEL</h1>
+            </div>
+            <div class="col">
+              <span class="attrib-val med-val"><%= @character.background %></span>
+              <hr>
+              <h1>BACKGROUND</h1>
+            </div>
+            <div class="col">
+              <span class="attrib-val med-val">[player name]</span>
+              <hr>
+              <h1>PLAYER NAME</h1>
+            </div>
           </div>
-          <div class="col">
-            Background: <%= @character.background %>
-          </div>
-          <div class="col">
-            Player:
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            Race: <%= @character.race %> <%= "(#{@character.subrace})" if @character.subrace.present? %>
-          </div>
-          <div class="col">
-            Alignment: <%= @character.alignment %>
-          </div>
-          <div class="col">
-            Total XP:
+          <div class="row">
+            <div class="col">
+              <span class="attrib-val med-val"><%= @character.race %> <%= "(#{@character.subrace})" if @character.subrace.present? %></span>
+              <hr>
+              <h1>RACE</h1>
+            </div>
+            <div class="col">
+              <span class="attrib-val med-val"><%= @character.alignment %></span>
+              <hr>
+              <h1>ALIGNMENT</h1>
+            </div>
+            <div class="col">
+              <span class="attrib-val med-val">[xp]</span>
+              <hr>
+              <h1>EXPERIENCE POINTS</h1>
+            </div>
           </div>
         </div>
     </div>
@@ -35,44 +49,46 @@
     <div class="container">
       <div class="row">
         <div class="col-4">
-          <div class="stat-box attribute">
-            <h1>Strength</h1>
-            <div class="attrib-mod"><%= "%+d" % @character.attributes.str_mod %></div>
-            <div class="attrib-val"><%= @character.attributes.strength %></div>
-          </div>
-          <div class="stat-box attribute">
-            <h1>Dexterity</h1>
-            <div class="attrib-mod"><%= "%+d" % @character.attributes.dex_mod %></div>
-            <div class="attrib-val"><%= @character.attributes.dexterity %></div>
-          </div>
-          <div class="stat-box attribute">
-            <h1>Constitution</h1>
-            <div class="attrib-mod"><%= "%+d" % @character.attributes.con_mod %></div>
-            <div class="attrib-val"><%= @character.attributes.constitution %></div>
-          </div>
-          <div class="stat-box attribute">
-            <h1>Intelligence</h1>
-            <div class="attrib-mod"><%= "%+d" % @character.attributes.int_mod %></div>
-            <div class="attrib-val"><%= @character.attributes.intelligence %></div>
-          </div>
-          <div class="stat-box attribute">
-            <h1>Wisdom</h1>
-            <div class="attrib-mod"><%= "%+d" % @character.attributes.wis_mod %></div>
-            <div class="attrib-val"><%= @character.attributes.wisdom %></div>
-          </div>
-          <div class="stat-box attribute">
-            <h1>Charisma</h1>
-            <div class="attrib-mod"><%= "%+d" % @character.attributes.cha_mod %></div>
-            <div class="attrib-val"><%= @character.attributes.charisma %></div>
+          <div class="attribute-container">
+            <div class="stat-box attribute">
+              <h1>STRENGTH</h1>
+              <div class="attrib-mod"><%= "%+d" % @character.attributes.str_mod %></div>
+              <div class="attrib-val"><%= @character.attributes.strength %></div>
+            </div>
+            <div class="stat-box attribute">
+              <h1>DEXTERITY</h1>
+              <div class="attrib-mod"><%= "%+d" % @character.attributes.dex_mod %></div>
+              <div class="attrib-val"><%= @character.attributes.dexterity %></div>
+            </div>
+            <div class="stat-box attribute">
+              <h1>CONSTITUTION</h1>
+              <div class="attrib-mod"><%= "%+d" % @character.attributes.con_mod %></div>
+              <div class="attrib-val"><%= @character.attributes.constitution %></div>
+            </div>
+            <div class="stat-box attribute">
+              <h1>INTELLIGENCE</h1>
+              <div class="attrib-mod"><%= "%+d" % @character.attributes.int_mod %></div>
+              <div class="attrib-val"><%= @character.attributes.intelligence %></div>
+            </div>
+            <div class="stat-box attribute">
+              <h1>WISDOM</h1>
+              <div class="attrib-mod"><%= "%+d" % @character.attributes.wis_mod %></div>
+              <div class="attrib-val"><%= @character.attributes.wisdom %></div>
+            </div>
+            <div class="stat-box attribute">
+              <h1>CHARISMA</h1>
+              <div class="attrib-mod"><%= "%+d" % @character.attributes.cha_mod %></div>
+              <div class="attrib-val"><%= @character.attributes.charisma %></div>
+            </div>
           </div>
         </div>
         <div class="col-8">
           <div class="container">
             <div class="row">
-              <span class='ticky-box'>&nbsp;</span><span class="box-label">Inspiration</span>
+              <span class='ticky-box'>&nbsp;</span><span class="box-label">INSPIRATION</span>
             </div>
             <div class="row mt-1">
-              <span class="labelled-val"><%= @character.proficiency_bonus %></span><span class="box-label">Proficiency bonus</span>
+              <span class="labelled-val"><%= @character.proficiency_bonus %></span><span class="box-label">PROFICIENCY BONUS</span>
             </div>
           </div>
           <div class="stat-box">
@@ -108,6 +124,7 @@
                 <span>Charisma</span>
               </li>
             </ul>
+            <h1 class="text-centre">SAVING THROWS</h1>
           </div>
           <div class="stat-box">
             <ul>
@@ -220,13 +237,14 @@
                 <span class="governing-attrib">(Wis)</span>
               </li>
             </ul>
+            <h1 class="text-centre">SKILLS</h1>
           </div>
         </div>
       </div>
     </div>
     <div class="container">
       <div class="row pr-3">
-        <span class="labelled-val"><%= @character.passive_perception %></span><span class="box-label">Passive Perception</span>
+        <span class="labelled-val"><%= @character.passive_perception %></span><span class="box-label">PASSIVE WISDOM (PERCEPTION)</span>
       </div>
     </div>
     <div class="container">
@@ -243,36 +261,36 @@
     </div>
   </div>
   <div class="col-4">
-    <div class="container">
+    <div class="container combat-passive-container">
       <div class="row">
         <div class="col-4">
           <div class="stat-box text-centre">
-            <h1>Armor class</h1>
             <span class="attrib-val large-val">##</span>
+            <h1>ARMOR CLASS</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="stat-box text-centre">
-            <h1>Initiative</h1>
             <span class="attrib-val large-val"><%= "%+d" % @character.initiative %></span>
+            <h1>INITIATIVE</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="stat-box text-centre">
-            <h1>Speed</h1>
             <span class="attrib-val large-val"><%= @character.base_speed %> ft.</span>
+              <h1>SPEED</h1>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <div class="stat-box text-centre">
-            <h1>Current hit points</h1>
             <span class="attrib-val"><%= @character.hit_point_maximum %>/<%= @character.hit_point_maximum %></span>
+              <h1>CURRENT HIT POINTS</h1>
           </div>
           <div class="stat-box text-centre">
-            <h1>Temporary hit points</h1>
             <span class="attrib-val">&nbsp;</span>
+              <h1>TEMPORARY HIT POINTS</h1>
           </div>
         </div>
       </div>
@@ -282,16 +300,15 @@
       <div class="row">
         <div class="col-4">
           <div class="stat-box text-centre">
-            <h1>Hit dice</h1>
             <span class="attrib-val"><%= @character.level %>d<%= @character.hit_die %></span>
+              <h1>HIT DICE</h1>
           </div>
         </div>
         <div class="col-8">
           <div class="stat-box text-centre">
-          <h1>Death saves</h1>
             <div class="container">
               <div class="row">
-                <div class="col-6 right">Successes</div>
+                <div class="col-6 right">SUCCESSES</div>
                 <div class="col-6">
                   <span class="dot"></span>
                   <span class="dot"></span>
@@ -299,7 +316,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-6 right">Failures</div>
+                <div class="col-6 right">FAILURES</div>
                 <div class="col-6">
                   <span class="dot"></span>
                   <span class="dot"></span>
@@ -307,29 +324,62 @@
                 </div>
               </div>
             </div>
+            <h1>DEATH SAVES</h1>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="stat-box free-text ml-3 mr-3">
+          <dl>
+            <dt>Attacks and Spellcasting</dt>
+            <dd>TODO - all</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="stat-box free-text ml-3 mr-3">
+          <dl>
+            <dt>Equipment</dt>
+            <dd>TODO - all</dd>
+          </dl>
         </div>
       </div>
     </div>
   </div>
   <div class="col-4">
-    <div class="stat-box free-text">
-      <h1 class="text-centre">Personality traits</h1>
-      <% @character.personality_traits.each do |trait| %>
-        <div><%= trait %></div>
-      <% end %>
+    <div class="container attribute-container">
+      <div class="stat-box free-text">
+        <% @character.personality_traits.each do |trait| %>
+          <div><%= trait %></div>
+        <% end %>
+        <h1 class="text-centre">PERSONALITY TRAITS</h1>
+      </div>
+      <div class="stat-box free-text">
+        <%= @character.ideal %>
+        <h1 class="text-centre">IDEALS</h1>
+      </div>
+      <div class="stat-box free-text">
+        <%= @character.bond %>
+          <h1 class="text-centre">BONDS</h1>
+      </div>
+      <div class="stat-box free-text">
+        <%= @character.flaw %>
+          <h1 class="text-centre">FLAWS</h1>
+      </div>
     </div>
-    <div class="stat-box free-text">
-      <h1 class="text-centre">Ideal</h1>
-      <%= @character.ideal %>
-    </div>
-    <div class="stat-box free-text">
-      <h1 class="text-centre">Bond</h1>
-      <%= @character.bond %>
-    </div>
-    <div class="stat-box free-text">
-      <h1 class="text-centre">Flaw</h1>
-      <%= @character.flaw %>
+    <div class="container">
+      <div class="row">
+        <div class="stat-box free-text ml-3 mr-3">
+          <dl>
+            <dt>Features and Traits</dt>
+            <dd>TODO - all</dd>
+          </dl>
+        </div>
+      </div>
     </div>
   </div>
 </div>

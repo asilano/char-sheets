@@ -3,11 +3,13 @@
 }
 
 .stat-box {
+  background-color: white;
   border: 1px black solid;
   margin: 1em 0;
 
   h1 {
-    font-size: 14px;
+    font-size: 12px;
+    color: #7E7E7E;
   }
 
   &.attribute {
@@ -19,6 +21,32 @@
       border-radius: 50%;
       position: relative;
       top: 0.6em;
+    }
+  }
+}
+
+.attribute-container {
+  background-color: #E5E5E5;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.combat-passive-container {
+  background-color: #E5E5E5;
+  border-radius: 5px;
+  padding: 2px;
+
+  .stat-box {
+    height: 5.5em;
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    h1 {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
     }
   }
 }
@@ -35,6 +63,10 @@
 
   &.large-val {
     font-size: 24px;
+  }
+
+  &.med-val {
+    font-size: 18px;
   }
 }
 
@@ -98,6 +130,22 @@ li {
 
 .free-text {
   flex-grow: 1;
+  font-size: 12px;
+  height: 8.5em;
+  margin: 1em 0;
+  padding: 0.5em;
+  position: relative;
+
+  h1 {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+  }
+}
+
+.character-foundation {
+  flex-grow: 1;
   margin: 1em 0;
   padding: 0.5em;
 }
@@ -108,4 +156,15 @@ dd {
 
 .text-centre {
   text-align: center;
+}
+
+hr {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  width: 100%;
+}
+
+.hero {
+  background-image: url('images/heroic.png');
+  z-index: -99;
 }
