@@ -92,8 +92,8 @@ module CharacterDSL
 
     def generate(&block)
       define_method(:create_me, &block)
-      define_singleton_method(:create) do
-        new_char = new
+      define_singleton_method(:create) do |interface = CommandLineInterface.new|
+        new_char = new(interface: interface)
         new_char.send(:create_me)
         new_char
       end

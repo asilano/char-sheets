@@ -210,6 +210,7 @@ class DnD5e < Character
   end
 
   generate do
+    @level = 1
     choose :race, :subrace, from: RACES
     # Determine base speed
     @base_speed = case race
@@ -248,7 +249,7 @@ class DnD5e < Character
       when 'Dark'
         race_ability_bonuses[:charisma] = 1
       when 'High'
-        puts 'Please enter a language to be proficient in'
+        prompt 'Please enter a language to be proficient in'
         language = choose(from: LANGUAGES - @languages)
         @languages << language
         race_ability_bonuses[:intelligence] = 1
@@ -265,16 +266,16 @@ class DnD5e < Character
         race_ability_bonuses[:constitution] = 1
       end
     when 'Half-Elf'
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       first_proficiency = choose(from: SKILLS).to_sym
       second_proficiency = choose(from: SKILLS - [first_proficiency]).to_sym
       @proficiencies += [first_proficiency, second_proficiency]
 
-      puts 'Please enter a language to be proficient in'
+      prompt 'Please enter a language to be proficient in'
       language = choose(from: LANGUAGES - @languages)
       @languages << language
       race_ability_bonuses = { charisma: 2 }
-      puts 'Please enter two abilities to get +1 (Your charisma is already +2)'
+      prompt 'Please enter two abilities to get +1 (Your charisma is already +2)'
       first_ability = choose(from: ABILITIES - [:charisma]).to_sym
       second_ability = choose(from: ABILITIES - [first_ability, :charisma]).to_sym
       race_ability_bonuses[first_ability] = 1
@@ -294,7 +295,7 @@ class DnD5e < Character
         race_ability_bonuses[:constitution] = 1
       end
     when 'Human'
-      puts 'Please enter a language to be proficient in'
+      prompt 'Please enter a language to be proficient in'
       language = choose(from: LANGUAGES - @languages)
       @languages << language
       race_ability_bonuses = ABILITIES.inject({}) { |h, a| h[a] = 1; h }
@@ -306,7 +307,7 @@ class DnD5e < Character
         sleight_of_hand
         stealth
       ]
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       first_proficiency = choose(from: kenku_proficiencies - @proficiencies).to_sym
       @proficiencies << first_proficiency
       second_proficiency = choose(from: kenku_proficiencies - @proficiencies).to_sym
@@ -323,7 +324,7 @@ class DnD5e < Character
     case character_class
     when 'Barbarian'
       @proficiencies += [:str_save, :con_save]
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       barbarian_proficiencies = %i[
         animal_handling
         athletics
@@ -338,14 +339,14 @@ class DnD5e < Character
       @proficiencies << second_proficiency
     when 'Bard'
       @proficiencies += [:dex_save, :cha_save]
-      puts 'Please enter three skill proficiencies'
+      prompt 'Please enter three skill proficiencies'
       first_proficiency = choose(from: SKILLS).to_sym
       second_proficiency = choose(from: SKILLS - [first_proficiency]).to_sym
       third_proficiency = choose(from: SKILLS - [first_proficiency] - [second_proficiency]).to_sym
       @proficiencies += [first_proficiency, second_proficiency, third_proficiency]
     when 'Cleric'
       @proficiencies += [:wis_save, :cha_save]
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       cleric_proficiencies = %i[
         history
         insight
@@ -360,7 +361,7 @@ class DnD5e < Character
       # TODO Divine Domain goes here!
     when 'Druid'
       @proficiencies += [:int_save, :wis_save]
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       druid_proficiencies = %i[
         arcana
         animal_handling
@@ -378,7 +379,7 @@ class DnD5e < Character
       @languages << 'Druidic'
     when 'Fighter'
       @proficiencies += [:str_save, :con_save]
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       fighter_proficiencies = %i[
         acrobatics
         animal_handling
@@ -396,7 +397,7 @@ class DnD5e < Character
       # TODO Fighting style
     when 'Monk'
       @proficiencies += [:str_save, :dex_save]
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       monk_proficiencies = %i[
         acrobatics
         athletics
@@ -411,7 +412,7 @@ class DnD5e < Character
       @proficiencies << second_proficiency
     when 'Paladin'
       @proficiencies += [:wis_save, :cha_save]
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       paladin_proficiencies = %i[
         athletics
         insight
@@ -426,7 +427,7 @@ class DnD5e < Character
       @proficiencies << second_proficiency
     when 'Ranger'
       @proficiencies += [:str_save, :dex_save]
-      puts 'Please enter three skill proficiencies'
+      prompt 'Please enter three skill proficiencies'
       ranger_proficiencies = %i[
         animal_handling
         athletics
@@ -446,7 +447,7 @@ class DnD5e < Character
       # TODO Choose favoured enemy
     when 'Rogue'
       @proficiencies += [:dex_save, :int_save]
-      puts 'Please enter four skill proficiencies'
+      prompt 'Please enter four skill proficiencies'
       rogue_proficiencies = %i[
         acrobatics
         athletics
@@ -472,7 +473,7 @@ class DnD5e < Character
       # TODO Choose expertise
     when 'Sorcerer'
       @proficiencies += [:con_save, :cha_save]
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       sorcerer_proficiencies = %i[
         arcana
         deception
@@ -488,7 +489,7 @@ class DnD5e < Character
       # TODO Choose sorcerous origin
     when 'Warlock'
       @proficiencies += [:wis_save, :cha_save]
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       warlock_proficiencies = %i[
         arcana
         deception
@@ -505,7 +506,7 @@ class DnD5e < Character
       # TODO Choose otherworldly patron
     when 'Wizard'
       @proficiencies += [:int_save, :wis_save]
-      puts 'Please enter two skill proficiencies'
+      prompt 'Please enter two skill proficiencies'
       wizard_proficiencies = %i[
         arcana
         history
@@ -523,9 +524,9 @@ class DnD5e < Character
     # ABILITY SCORES
     ability_scores = [15, 14, 13, 12, 10, 8]
     ABILITIES.each do |ability|
-      puts "Please enter a value from the list for #{ability}"
+      prompt "Please enter a value from the list for #{ability}"
       if race_ability_bonuses.key?(ability)
-        puts "Due to your character cheeses so far, you have a +#{race_ability_bonuses[ability]} bonus to this ability"
+        prompt "Due to your character choices so far, you have a #{"%+d" % race_ability_bonuses[ability]} bonus to this ability"
       end
       choice = choose(from: ability_scores).to_i
       attributes.send("#{ability}=", choice + (race_ability_bonuses[ability] || 0))
@@ -542,7 +543,7 @@ class DnD5e < Character
     when 'Acolyte'
       @proficiencies << :insight
       @proficiencies << :religion
-      puts 'Please enter two languages to be proficient in.'
+      prompt 'Please enter two languages to be proficient in.'
       2.times { @languages << choose(from: LANGUAGES - @languages) }
       personality_options = [
         %q{I idolize a parlicular hero of my faith, and constantly refer to that person's deeds and example.},
@@ -729,7 +730,7 @@ class DnD5e < Character
     when 'Guild Artisan'
       @proficiencies << :insight
       @proficiencies << :persuasion
-      puts 'Please enter a language to be proficient in.'
+      prompt 'Please enter a language to be proficient in.'
       @languages << choose(from: LANGUAGES - @languages)
       personality_options = [
         %q{I believe that anything worth doing is worth doing right. I can't help it - I'm a perfectionist.},
@@ -768,7 +769,7 @@ class DnD5e < Character
     when 'Hermit'
       @proficiencies << :medicine
       @proficiencies << :religion
-      puts 'Please enter a language to be proficient in.'
+      prompt 'Please enter a language to be proficient in.'
       @languages << choose(from: LANGUAGES - @languages)
       personality_options = [
         %q{I've been isolated for so long that I rarely speak, preferring gestures and the occasional grunt.},
@@ -776,7 +777,7 @@ class DnD5e < Character
         %q{The leader of my community had something wise to say on every topic, and I am eager to share that wisdom.},
         %q{I feel tremendous empathy for all who suffer.},
         %q{I'm oblivious to etiquette and social expectations.},
-        %q{I conneet everything that happens to me to a grand, cosmic plan.},
+        %q{I connect everything that happens to me to a grand, cosmic plan.},
         %q{I often get lost in my own thoughts and contemplation, becoming oblivious to my surroundings.},
         %q{I am working on a grand philosophical theory and love sharing my ideas.}
       ]
@@ -807,7 +808,7 @@ class DnD5e < Character
     when 'Noble'
       @proficiencies << :history
       @proficiencies << :persuasion
-      puts 'Please enter a language to be proficient in.'
+      prompt 'Please enter a language to be proficient in.'
       @languages << choose(from: LANGUAGES - @languages)
       personality_options = [
         %q{My eloquent flattery makes everyone I talk to feel like the most wonderful and important person in the world.},
@@ -846,7 +847,7 @@ class DnD5e < Character
     when 'Outlander'
       @proficiencies << :athletics
       @proficiencies << :survival
-      puts 'Please enter a language to be proficient in.'
+      prompt 'Please enter a language to be proficient in.'
       @languages << choose(from: LANGUAGES - @languages)
       personality_options = [
         %q{I'm driven by a wanderlust that led me away from home.},
@@ -885,7 +886,7 @@ class DnD5e < Character
     when 'Sage'
       @proficiencies << :arcana
       @proficiencies << :history
-      puts 'Please enter two languages to be proficient in.'
+      prompt 'Please enter two languages to be proficient in.'
       2.times { @languages << choose(from: LANGUAGES - @languages) }
       personality_options = [
         %q{I use polysyllabic words that convey the impression of greal erudition.},
@@ -1034,7 +1035,7 @@ class DnD5e < Character
       ]
     end
 
-    puts 'Please select two personality traits for your character'
+    prompt 'Please select two personality traits for your character'
     2.times do
       @personality_traits <<
         choose_by_number(from: personality_options - @personality_traits, allow_random: true, allow_free: true)
