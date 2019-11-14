@@ -26,13 +26,18 @@
 }
 
 .attribute-container {
-  background-color: #E5E5E5;
+  background-color: #DEDFDF;
   border-radius: 5px;
-  padding: 2px;
+  padding: 5px;
+}
+
+.attributes-bleb {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .combat-passive-container {
-  background-color: #E5E5E5;
+  background-color: #DEDFDF;
   border-radius: 5px;
   padding: 2px;
 
@@ -87,7 +92,7 @@ li {
 
 .governing-attrib {
   font-size: 12px;
-  color: #707070;
+  color: #7E7E7E;
 }
 
 .labelled-val {
@@ -146,7 +151,13 @@ li {
 
 .character-foundation {
   flex-grow: 1;
-  margin: 1em 0;
+  margin: 3.5em 0 1em 0;
+  padding: 0.5em;
+}
+
+.character-name {
+  flex-grow: 1;
+  margin: 5em 0 1em 0;
   padding: 0.5em;
 }
 
@@ -166,5 +177,6 @@ hr {
 
 .hero {
   background-image: url('images/heroic.png');
+  background-repeat: no-repeat;
   z-index: -99;
 }
